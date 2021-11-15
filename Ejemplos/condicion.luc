@@ -1,0 +1,9 @@
+func main() -> null {
+    const pi: float = 3.14;
+    let x: int = 4;
+    let y: int;
+
+    if pi < x {
+        y = 5;
+    }
+}

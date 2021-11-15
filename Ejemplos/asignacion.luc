@@ -1,0 +1,6 @@
+func main() -> null {
+    const pi: float = 3.14;
+    let a: int = 1;
+    let b: int = 2;
+    let c: int = a + b;
+}

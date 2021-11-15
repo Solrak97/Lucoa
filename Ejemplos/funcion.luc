@@ -1,0 +1,10 @@
+func foo(x: int, y: string) -> int {
+    return 1;    
+}
+
+func main() -> null {
+    let x: int = 3;
+    let y: string = "Parametro divertido";
+    let z: int = foo x, y;
+}
+

@@ -1,0 +1,8 @@
+func main() -> null {
+    let a: int = 0;
+    let b: int = 10;
+    
+    while a > b {
+        a++;
+    }
+}

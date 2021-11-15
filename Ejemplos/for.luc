@@ -1,0 +1,5 @@
+func main() -> null {
+    from [0, 11] : ++ {
+        print "lucoa la mas grande";
+    }
+}
