@@ -1,0 +1,257 @@
+%{
+      #include <stdio.h>
+%}
+
+/* Keywords */
+%token LET IF ELSE FROM WHILE FUNC
+
+/* TOKENS */
+%token IDENTIFIER
+
+/* Operadores */
+%token INC_OP DEC_OP
+%token LE_OP GE_OP
+%token EQ_OP NE_OP
+%token AND_OP OR_OP
+
+/* Tipos de dato */
+%token NULL CHAR INT FLOAT STRING BOOL
+
+%start program
+
+%%
+
+
+
+
+
+
+
+
+/* Entry point de la gramatica */
+program
+      : function_definition
+      | declaration
+      ;
+
+/*
+Declaracion de funciones
+fun nombre() -> retorno {}
+fun nombre(a, b, c) -> retorno {} 
+*/
+
+
+/*
+      func fn(a: int, b: char, c: float) -> null {}
+*/
+function_definition 
+      : FUNC IDENTIFIER '(' declarator_list ')' ARROW type_specifier compound_statement
+      ;
+
+
+/*
+      let a: int, let b: char, let c: float
+*/
+declarator_list 
+      : declarator
+      | declarator_list ',' declarator
+      ;
+
+
+/*
+Declaraciones
+*/
+
+/*
+      : let a: int;
+      | let a: int = 7;
+      | let a: int = let b: int = 7;
+*/
+declaration 
+      : init_declarator ';'
+      ;
+
+
+/*
+      : let a: int
+      | let a: int = 7
+      | let a: int = let b: int
+*/
+init_declarator
+      : declarator
+      | declarator '=' assignment_expression
+      ; 
+
+
+/* 
+      let a: int  
+*/
+declarator
+      : IDENTIFIER
+      | LET IDENTIFIER ':' type_specifier
+      ;
+
+
+/*
+Sentencia
+*/
+
+statement
+      : /**/
+      ;
+
+compound_statement 
+      : '{' '}'
+      | '{' statement_list '}'
+      ;
+
+statement_list
+      : statement
+      | statement_list statement
+      ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*LET IDENTIFIER ':' type_specifier assignment_operator expression ';'*/
+
+/* Declaraciones */
+declaration 
+      : declaration_specifiers ';'
+      | declaration_specifiers init_declaration_list ';'
+      ;
+
+declaration_specifiers 
+      : LET type_specifier
+      | type_specifier declaration_specifiers
+      ;
+
+
+/* Expresiones */
+primary_expression
+      : IDENTIFIER
+      | '(' expression ')'
+      ;
+
+postfix_expression
+      : primary_expression
+      | postfix_expression DEC_OP
+      | postfix_expression INC_OP
+      ;
+
+unary_expression
+      : postfix_expression
+      | DEC_OP unary_expression
+      | INC_OP unary_expression
+      ;
+
+multiplicative_expression
+      : unary_expression
+      | multiplicative_expression '*' unary_expression
+      | multiplicative_expression '/' unary_expression
+      ;
+
+additive_expression
+      : multiplicative_expression
+      | additive_expression '+' multiplicative_expression
+      | additive_expression '-' multiplicative_expression
+      ;
+
+relational_expression
+      : additive_expression
+      | relational_expression '>' additive_expression
+      | relational_expression '<' additive_expression
+      | relational_expression LE_OP additive_expression
+      | relational_expression GE_OP additive_expression
+      ;
+
+equality_expression
+      : relational_expression
+      | equality_expression EQ_OP relational_expression
+      | equality_expression NE_OP relational_expression
+      ;
+
+logical_and_expression
+      : equality_expression
+      | logical_and_expression AND_OP equality_expression
+      ; 
+
+logical_or_expression
+      : logical_and_expression
+      | logical_or_expression OR_OP logical_and_expression
+      ;
+
+conditional_expression
+      : logical_or_expression
+      ;
+
+/*condicional*/
+/////////////////
+selection_statement
+	: IF '(' expression ')' statement
+	| IF '(' expression ')' statement ELSE statement
+	;
+///////////////////
+
+assignment_expression
+      : conditional_expression
+      | unary_expression assignment_operator assignment_expression
+      ;
+
+assignment_operator
+      : '='
+      ;
+
+expression
+      : assignment_expression
+      ;
+
+
+/* Definicion de funciones */
+function_definition
+      :
+      |
+      ;
+
+/* Definicion de ciclos */
+iteration_statement
+      : WHILE '(' expression ')' statement
+      | FROM '['expression ',' expression']' ':' expression statement /* from [a, 9] : c { } */
+      ;
+
+/* operadores */
+unary_operator
+      : '+'
+      | '-'
+      | '!'
+      ;
+
+
+/* 
+Definicion de tipos primitivos
+Eventualmente le damos soporte a tipos
+definidos por el usuario :) 
+*/
+
+type_specifier 
+      : NULL
+      | CHAR
+      | INT
+      | FLOAT
+      | STRING
+      | BOOL
+      ;
+
+%%
+
+ 
