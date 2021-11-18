@@ -14,15 +14,20 @@ IS		(u|U|l|L)*
 
 %%
 
-"let"                               {return (LET);}       
+"let"                               {return (LET);}
+"const"                             {return (CONST);}
+"func"                              {return (FUNC);}       
 "void"                              {return (VOID);}                    
 "char"                              {return (CHAR);}                    
 "int"                               {return (INT);}
 "string"                            {return (STRING);}
-"bool"                              {return (BOOL);}                    
+"bool"                              {return (BOOL);}
+"from"                              {return (FROM);}                      
 "="                                 {return (EQUALS);}
 "++"                                {return (INC_OP);}
 "--"                                {return (DEC_OP);}
+"+"                                 {return (PLUS);}
+"-"                                 {return (MINUS);}
 "<="                                {return (LE_OP);}
 ">="                                {return (GE_OP);}
 "=="                                {return (EQ_OP);}
@@ -33,9 +38,17 @@ IS		(u|U|l|L)*
 "else"                              {return (ELSE);}
 ":"                                 {return (COLON);}
 ";"                                 {return (SEMICOLON);}
+"->"                                {return (ARROW);}
+"("                                 {return (RND_PAR_OPEN);}
+")"                                 {return (RND_PAR_CLOSE);}
+"["                                 {return (BOX_PAR_OPEN);}
+"]"                                 {return (BOX_PAR_CLOSE);}
+"{"                                 {return (CUR_PAR_OPEN);}
+"}"                                 {return (CUR_PAR_CLOSE);}
+","                                 {return (COMMA);}
 
-[0-9]+                              {return (CONSTANT);}
-[0-9]+"."[0-9]+                      {return (CONSTANT);}   /* Requiere revision */
+[0-9]+(.[0-9]+)?                    {return (NUMBER);}
+
 [a-zA-Z_]([a-zA-Z_0-9])*            {return (IDENTIFIER);}
 
 [ \t]                               {}
