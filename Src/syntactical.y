@@ -8,10 +8,11 @@
 %token COLON SEMICOLON COMMA PLUS MINUS
 %token RND_PAR_OPEN RND_PAR_CLOSE BOX_PAR_OPEN BOX_PAR_CLOSE CUR_PAR_OPEN CUR_PAR_CLOSE
 %token EQUALS ARROW
-%token NUMBER
+%token NUMERIC DOT
+%token MUL DIV
 
 /* Tipos de dato */
-%token VOID CHAR INT FLOAT STRING BOOL
+%token VOID CHAR INT FLOAT STRING BOOL STRING_LITERAL
 
 %token INC_OP DEC_OP
 %token LE_OP GE_OP
@@ -53,7 +54,7 @@ Declaraciones
       | let a: int = let b: int = 7;
 */
 declaration 
-      : init_declarator SEMICOLON {printf("Variable encontrada\n");}
+      : init_declarator SEMICOLON {printf("Variable asignada\n");}
       ;
       /*instrucción NASM equivalente: mov nombreVariable, valorVariable/*
 
@@ -79,19 +80,27 @@ declarator
 
 /* Expresiones */
 primary_expression
-      : IDENTIFIER
-      | NUMBER
+      : IDENTIFIER                  {printf("Detectado identificador\n");}
+      | NUMERIC DOT NUMERIC         {printf("Detectado float\n");}
+      | NUMERIC                     {printf("Detectado numeric\n");}
+      | STRING_LITERAL              {printf("Detectado String Literal\n");}
       ;
 
 additive_expression
-      : primary_expression
-      | additive_expression PLUS primary_expression
-      | additive_expression MINUS primary_expression
+      : primary_expression                            {printf("Detectado Primario\n");}
+      | additive_expression PLUS primary_expression   {printf("Detectado suma\n");}
+      | additive_expression MINUS primary_expression  {printf("Detectado Resta\n");}
+      ;
+
+multiplicative_expression
+      : additive_expression                                 {printf("Detectado Suma base\n");}
+      | multiplicative_expression MUL additive_expression   {printf("Detectado Multi\n");}
+      | multiplicative_expression DIV additive_expression   {printf("Detectado Div\n");}
       ;
 
 assignment_expression
-      : additive_expression
-      | primary_expression EQUALS additive_expression 
+      : multiplicative_expression                           {printf("Detectado Multi base\n");}
+      | primary_expression EQUALS multiplicative_expression {printf("Detectado asignacion\n");}
       ;
 
 ///////////////////////////////////////////////////////////////

@@ -14,6 +14,9 @@ IS		(u|U|l|L)*
 
 %%
 
+"."                                 {return (DOT);}
+"*"                                 {return (MUL);}
+"/"                                 {return (DIV);}
 "let"                               {return (LET);}
 "const"                             {return (CONST);}
 "func"                              {return (FUNC);}       
@@ -22,7 +25,8 @@ IS		(u|U|l|L)*
 "int"                               {return (INT);}
 "string"                            {return (STRING);}
 "bool"                              {return (BOOL);}
-"from"                              {return (FROM);}                      
+"from"                              {return (FROM);} 
+"float"                             {return (FLOAT);}                     
 "="                                 {return (EQUALS);}
 "++"                                {return (INC_OP);}
 "--"                                {return (DEC_OP);}
@@ -47,7 +51,10 @@ IS		(u|U|l|L)*
 "}"                                 {return (CUR_PAR_CLOSE);}
 ","                                 {return (COMMA);}
 
-[0-9]+(.[0-9]+)?                    {return (NUMBER);}
+\".*\"                              {return (STRING_LITERAL);}
+
+[-+]?\\.[0-9]*                      {return (NUMERIC);}
+[-+]?[0-9]*                         {return (NUMERIC);}
 
 [a-zA-Z_]([a-zA-Z_0-9])*            {return (IDENTIFIER);}
 
