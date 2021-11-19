@@ -9,6 +9,7 @@ IS		(u|U|l|L)*
 %{
     #include <stdio.h> 
 	#include "syntactical.tab.h"
+    //#include "SymbolTable.h"
     int     LINE_NO = 1;
 %}
 
@@ -60,6 +61,7 @@ IS		(u|U|l|L)*
 
 [ \t]                               {}
 \n                                  {++LINE_NO;}
+<<EOF>>                             {printf("End of file\n"); yyterminate();}
 .                                   {}
 
 %%

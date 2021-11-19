@@ -1,26 +1,25 @@
 %{
       #include <stdio.h>
+      #include "SymbolTable.h"
       int yylex(void);
 %}
 
-/* TOKENS */
+/* RESWORDS */
 %token LET CONST IDENTIFIER FUNC FROM
-%token COLON SEMICOLON COMMA PLUS MINUS
+%token COLON SEMICOLON COMMA
 %token RND_PAR_OPEN RND_PAR_CLOSE BOX_PAR_OPEN BOX_PAR_CLOSE CUR_PAR_OPEN CUR_PAR_CLOSE
 %token EQUALS ARROW
 %token NUMERIC DOT
-%token MUL DIV
 
 /* Tipos de dato */
 %token VOID CHAR INT FLOAT STRING BOOL STRING_LITERAL
 
-%token INC_OP DEC_OP
-%token LE_OP GE_OP
-%token EQ_OP NE_OP
-%token AND_OP OR_OP
-%token IF ELSE
-%start program
+/* Operadores */
+%token MUL DIV PLUS MINUS INC_OP DEC_OP
+%token LE_OP GE_OP EQ_OP NE_OP AND_OP OR_OP IF ELSE
 
+/* ENTRY POINT */
+%start program
 
 %%
 
@@ -54,7 +53,7 @@ Declaraciones
       | let a: int = let b: int = 7;
 */
 declaration 
-      : init_declarator SEMICOLON {printf("Variable asignada\n");}
+      : init_declarator SEMICOLON {printf("Variable asignada\n"); tableInsertion(0,0);}
       ;
       /*instrucción NASM equivalente: mov nombreVariable, valorVariable/*
 
@@ -80,30 +79,28 @@ declarator
 
 /* Expresiones */
 primary_expression
-      : IDENTIFIER                  {printf("Detectado identificador\n");}
-      | NUMERIC DOT NUMERIC         {printf("Detectado float\n");}
-      | NUMERIC                     {printf("Detectado numeric\n");}
-      | STRING_LITERAL              {printf("Detectado String Literal\n");}
+      : IDENTIFIER               
+      | NUMERIC DOT NUMERIC       
+      | NUMERIC                  
+      | STRING_LITERAL            
       ;
 
 additive_expression
-      : primary_expression                            {printf("Detectado Primario\n");}
-      | additive_expression PLUS primary_expression   {printf("Detectado suma\n");}
-      | additive_expression MINUS primary_expression  {printf("Detectado Resta\n");}
+      : primary_expression                          
+      | additive_expression PLUS primary_expression 
+      | additive_expression MINUS primary_expression
       ;
 
 multiplicative_expression
-      : additive_expression                                 {printf("Detectado Suma base\n");}
-      | multiplicative_expression MUL additive_expression   {printf("Detectado Multi\n");}
-      | multiplicative_expression DIV additive_expression   {printf("Detectado Div\n");}
+      : additive_expression                                
+      | multiplicative_expression MUL additive_expression  
+      | multiplicative_expression DIV additive_expression  
       ;
 
 assignment_expression
-      : multiplicative_expression                           {printf("Detectado Multi base\n");}
-      | primary_expression EQUALS multiplicative_expression {printf("Detectado asignacion\n");}
+      : multiplicative_expression                          
+      | primary_expression EQUALS multiplicative_expression
       ;
-
-///////////////////////////////////////////////////////////////
 
 /* Función */
 function_definition
@@ -136,7 +133,6 @@ loop
       | FROM BOX_PAR_OPEN primary_expression COMMA primary_expression BOX_PAR_CLOSE COLON DEC_OP compound_statement {printf("Ciclo encontrado\n");}
       ;
 
-//////////////////////////////////////////////////////////////
 
 %%
 yyerror(s)
