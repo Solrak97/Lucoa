@@ -1,7 +1,7 @@
 %{
-    #include <stdio.h>
-    void yyerror(char* s);
-    int yylex(void);
+      #include <stdio.h>
+      #include "SymbolTable.h"
+      int yylex(void);
 %}
 
 /* RESWORDS */
@@ -53,7 +53,7 @@ Declaraciones
       | let a: int = let b: int = 7;
 */
 declaration 
-      : init_declarator SEMICOLON {printf("Variable asignada\n");}
+      : init_declarator SEMICOLON {printf("Variable asignada\n"); tableInsertion(0,0);}
       ;
       /*instrucción NASM equivalente: mov nombreVariable, valorVariable/*
 
@@ -133,8 +133,10 @@ loop
       | FROM BOX_PAR_OPEN primary_expression COMMA primary_expression BOX_PAR_CLOSE COLON DEC_OP compound_statement {printf("Ciclo encontrado\n");}
       ;
 
+
 %%
-void yyerror(char *s)
+yyerror(s)
+char *s;
 {
   fprintf(stderr, "%s\n",s);
 }
