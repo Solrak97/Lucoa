@@ -9,7 +9,7 @@ IS		(u|U|l|L)*
 %{
     #include <stdio.h> 
 	#include "syntactical.tab.h"
-    //#include "SymbolTable.h"
+    //#include "SymbolTable.hpp"
     int     LINE_NO = 1;
 %}
 
@@ -54,8 +54,8 @@ IS		(u|U|l|L)*
 
 \".*\"                              {return (STRING_LITERAL);}
 
-[-+]?\\.[0-9]*                      {return (NUMERIC);}
-[-+]?[0-9]*                         {return (NUMERIC);}
+[-+]?\\.[0-9]*                      {return (FLOAT_LITERAL);}
+[-+]?[0-9]*                         {yylval=atoi(yytext); return (NUMERIC_LITERAL);}
 
 [a-zA-Z_]([a-zA-Z_0-9])*            {return (IDENTIFIER);}
 

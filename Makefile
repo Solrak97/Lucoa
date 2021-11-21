@@ -9,3 +9,4 @@ lex.yy.c: syntactical.tab.c syntactical.tab.h Src/lexical.lex
 
 syntactical.tab.c syntactical.tab.h: Src/syntactical.y
 	bison -d Src/syntactical.y 
+ 
