@@ -11,7 +11,7 @@ from .ply import lex
 tokens = (  
 
     #Keyword
-    'LET', 'CONST', 'FUNC',
+    'LET', 'CONST', 'FUNC', 'FROM',
     
     #Data Types 
     'VOID', 'BOOL', 'CHAR', 'INT', 'FLOAT', 'STRING',
@@ -22,7 +22,7 @@ tokens = (
     'PLUS', 'MINUS', 'MUL', 'DIV', 'EQUALS', 'INC_OP',
     'DEC_OP', 'LE_OP', 'GE_OP', 'EQ_OP', 'NE_OP', 'AND_OP',
     'OR_OP', 'IF', 'ELSE', 'COLON', 'SEMICOLON', 'ARROW',
-    'COMMA', 
+    'COMMA', 'QUESTION', 'GREATER_OP', 'LESS_OP', 'WHILE', 'DO',
     
 
     #Parentesis
@@ -40,8 +40,7 @@ t_INC_OP = r'\+\+'
 t_DEC_OP = r'--'
 t_PLUS = r'\+'
 t_MINUS = r'-'
-t_IF = r'if'
-t_ELSE = r'else'
+
 t_ARROW = r'->'
 t_RND_PAR_OPEN = r'\('
 t_RND_PAR_CLOSE = r'\)'
@@ -49,17 +48,24 @@ t_BOX_PAR_OPEN = r'\['
 t_BOX_PAR_CLOSE = r'\]'
 t_CUR_PAR_OPEN = r'{'
 t_CUR_PAR_CLOSE = r'}' 
+
+t_QUESTION = r'\?'
+
 t_COMMA = r','
 t_EQUALS = r'='
+
+t_GREATER_OP = r'>'
+t_LESS_OP = r'<'
+
 t_LE_OP = r'<='
-t_GE_OP = r'>=-'
+t_GE_OP = r'>='
 t_EQ_OP = r'=='
 t_NE_OP = r'!='
 t_AND_OP = r'&&'
 t_OR_OP = r'\|\|'
 t_COLON = r':'
 t_SEMICOLON = r';'
-t_STRING_LITERAL = r'".*"'
+t_STRING_LITERAL = r'".*"|\'.*\''
 
 def t_LET(t):
     r'let'
@@ -95,6 +101,26 @@ def t_FLOAT(t):
 
 def t_STRING(t):
     r'string'
+    return t
+
+def t_FROM(t):
+    r'from'
+    return t
+
+def t_IF(t):
+    r'if'
+    return t
+
+def t_ELSE(t):
+    r'else'
+    return t
+
+def t_WHILE(t):
+    r'while'
+    return t
+
+def t_DO(t):
+    r'do'
     return t
 
 def t_FLOAT_LITERAL(t): 

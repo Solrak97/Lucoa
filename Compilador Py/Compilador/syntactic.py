@@ -13,6 +13,9 @@ def p_program(t):
     '''
     program : declaration
         | program declaration
+        | function_definition
+        | iteration_statement
+        | selection_statement
     '''
     pass
 
@@ -110,7 +113,7 @@ def p_multiplicative_expression(t):
     pass
 
 
-def p_assigment_expression(t):
+def p_assignment_expression(t):
     '''
     assignment_expression : multiplicative_expression
         | primary_expression EQUALS multiplicative_expression
@@ -122,6 +125,84 @@ def p_assigment_expression(t):
         t[0] = t[1]
     pass  
 
+def p_selection_statement(t):
+    '''
+    selection_statement : IF conditional_expression compound_statement
+        | IF conditional_expression compound_statement ELSE compound_statement
+    '''
+
+def p_statement(t):
+    '''
+    statement : declaration
+        | iteration_statement
+        | selection_statement
+    '''
+
+def p_statement_list(t):
+    '''
+    statement_list : statement
+        | statement_list statement
+    '''
+
+def p_compound_statement(t):
+    '''
+    compound_statement : CUR_PAR_OPEN CUR_PAR_CLOSE
+        | CUR_PAR_OPEN statement_list CUR_PAR_CLOSE
+    '''
+
+def p_identifier_list(t):
+    '''
+    identifier_list : IDENTIFIER
+        | identifier_list COMMA IDENTIFIER
+    '''
+
+def p_relational_expression(t):
+    '''
+    relational_expression : multiplicative_expression
+        | relational_expression LESS_OP multiplicative_expression
+        | relational_expression GREATER_OP multiplicative_expression
+        | relational_expression LE_OP multiplicative_expression
+        | relational_expression GE_OP multiplicative_expression
+    '''
+
+def p_equality_expression(t):
+    '''
+    equality_expression : relational_expression
+        | equality_expression EQ_OP relational_expression
+        | equality_expression NE_OP relational_expression
+    '''
+
+def p_and_expression(t):
+    '''
+    and_expression : equality_expression
+        | and_expression AND_OP equality_expression
+    '''
+
+def p_or_expression(t):
+    '''
+    or_expression : and_expression
+        | or_expression OR_OP and_expression
+    '''
+
+def p_conditional_expression(t):
+    '''
+    conditional_expression : or_expression
+        | or_expression QUESTION assignment_expression COLON conditional_expression
+    '''
+
+def p_function_definition(t):
+    '''
+    function_definition : FUNC IDENTIFIER RND_PAR_OPEN identifier_list RND_PAR_CLOSE ARROW type_specifier compound_statement
+    '''
+
+def p_iteration_statement(t):
+    '''
+    iteration_statement : FROM BOX_PAR_OPEN primary_expression COMMA primary_expression BOX_PAR_CLOSE COLON INC_OP compound_statement
+        | FROM BOX_PAR_OPEN primary_expression COMMA primary_expression BOX_PAR_CLOSE COLON DEC_OP compound_statement
+        | WHILE conditional_expression compound_statement
+        | DO compound_statement WHILE conditional_expression SEMICOLON
+    '''
+    ### OJO CON EL DO (POSIBLE ERROR CON EL PUNTO Y COMA FINAL)
 
 def p_error(t):
     print(f"Syntax error in line {t.lineno} at {t.value}") 

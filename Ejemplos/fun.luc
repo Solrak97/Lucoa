@@ -1,0 +1,7 @@
+func foo(x, y) -> int {
+    from [4,6] : ++ {
+        do {
+            let hola: string = 'gl';
+        } while a + b <= c * d;
+    }
+}
