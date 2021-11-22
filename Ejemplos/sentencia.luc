@@ -1,0 +1,18 @@
+# Ejemplo de expresiones
+# Las expresiones deberían verse de forma sencilla
+# Como una cadena de expresiones, no es necesario que 
+# Estas representen una asignacion, sin embargo es posible
+
+
+# Sentencias sueltas
+var = term1 + term2;        
+var1 + var2 || var3 * 5;
+
+# Sentencias vacias
+{}
+
+# Sentencias compuestas
+{
+    var = term1 + term2;        
+    var1 + var2 || var3 * 5;
+}

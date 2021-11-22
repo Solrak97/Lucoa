@@ -1,0 +1,25 @@
+# Loops
+# Existen 2 formas de hacer loops
+# Usando un while o usando nuestra
+# Unica y diferente forma de un for, bastante inutil pero creativo
+
+
+# Un while se define de la forma
+# while <expresion> {<Bloque de sentencias>}
+let i: int = -23;
+while i < 0 {
+    print(i);
+    i = i + 1;
+}
+
+
+
+# Un for se define de la forma
+# from [<rango de movimiento>] : <++/-- para realizar el movimiento> {<Bloque de sentencias>}
+from [0, 9] : ++ {
+    print("Que for mas raro");
+    while i != 10 {
+        print("De paso le anidamos un while.. se imagina!");
+        i = 1 + 1;
+    }
+}

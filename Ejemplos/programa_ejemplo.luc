@@ -1,0 +1,30 @@
+# Primero declaramos variables para usar mas adelante
+let a: float = 7.5;
+const pi: float = 3.14;
+
+
+# Luego declaramos una funcion
+func suma(a: float, b: float) -> float {
+    return(a + b);
+}
+
+# Creamos una variable y le asignamos el valor de la funcion
+let res1: int;
+res1 = suma(a, b);
+
+# Tambien podemos llamar la funcion sobre una variable en su declaracion
+let res2: int = suma(res1, b);
+
+# Podemos realizar cosillas mas complejas, por ejemplo
+# Definamos una funcion para realizar una sumatoria
+# Entre la variable a y b
+
+func sumatoria(a: int, b: int) -> int {
+    let contador: int = a;
+    let acumulador: int = 0;
+    
+    while contador <= b {
+        acumulador = acumulador + contador;
+    }
+    return(acumulador);
+}

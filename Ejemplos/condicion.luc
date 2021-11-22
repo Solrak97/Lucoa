@@ -1,9 +1,21 @@
-func main() -> null {
-    const pi: float = 3.14;
-    let x: int = 4;
-    let y: int;
+# Condicionales
+# Estos se definen de la misma forma que en otros lenguajes de programacion
+# De la forma 
+# if <expresion> { <Sentencia compuesta> }
+# if <expresion> { <Sentencia compuesta> } else { <Sentencia compuesta> }
 
-    if pi < x {
-        y = 5;
-    }
+
+# Caso simple
+if pi < x {
+    y = 5;
+}
+
+
+# Caso con else
+if pi > 5 {
+    pi = 5;
+}
+
+else {
+    print("Que extraños son los numeros");
 }

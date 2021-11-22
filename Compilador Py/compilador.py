@@ -26,7 +26,6 @@ with open(PATH, mode='r', encoding='utf-8') as file:
 lexer.input(data)
 while True:
     tok = lexer.token()
-    #print(tok)
     if not tok: 
         break      
 #    print(tok)
@@ -40,5 +39,3 @@ lexer.lineno = 1
 parser.parse(data)
 
 generar_codigo()
-
-#print(data.to_string())   

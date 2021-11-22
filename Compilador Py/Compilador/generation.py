@@ -15,10 +15,10 @@ def generar_codigo():
     global BSS, TEXT
     codigo = "SECTION .bss\n"
     for data in BSS:
-        codigo += data + "\n"
+        codigo += f"\t{data}\n"
     codigo += "SECTION .text\n"
     for data in TEXT:
-        codigo += data + "\n"
+        codigo += f"\t{data}\n"
 
     with open("programa.asm",'w+') as f:
         f.write(codigo)

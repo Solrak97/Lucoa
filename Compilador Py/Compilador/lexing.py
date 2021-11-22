@@ -11,8 +11,7 @@ from .ply import lex
 tokens = (  
 
     #Keyword
-    'LET', 'CONST', 'FUNC', 'FROM',
-    
+    'LET', 'CONST', 'FUNC', 'FROM', 
     #Data Types 
     'VOID', 'BOOL', 'CHAR', 'INT', 'FLOAT', 'STRING',
     'STRING_LITERAL', 'FLOAT_LITERAL', 'INT_LITERAL',
@@ -22,7 +21,7 @@ tokens = (
     'PLUS', 'MINUS', 'MUL', 'DIV', 'EQUALS', 'INC_OP',
     'DEC_OP', 'LE_OP', 'GE_OP', 'EQ_OP', 'NE_OP', 'AND_OP',
     'OR_OP', 'IF', 'ELSE', 'COLON', 'SEMICOLON', 'ARROW',
-    'COMMA', 'QUESTION', 'GREATER_OP', 'LESS_OP', 'WHILE', 'DO',
+    'COMMA', 'GREATER_OP', 'LESS_OP', 'WHILE', 
     
 
     #Parentesis
@@ -49,8 +48,6 @@ t_BOX_PAR_CLOSE = r'\]'
 t_CUR_PAR_OPEN = r'{'
 t_CUR_PAR_CLOSE = r'}' 
 
-t_QUESTION = r'\?'
-
 t_COMMA = r','
 t_EQUALS = r'='
 
@@ -66,6 +63,12 @@ t_OR_OP = r'\|\|'
 t_COLON = r':'
 t_SEMICOLON = r';'
 t_STRING_LITERAL = r'".*"|\'.*\''
+
+
+def t_COMMENT(t):
+    r'(\#.+(\n)?)'
+    t.lexer.lineno += len(t.value)
+    pass
 
 def t_LET(t):
     r'let'
@@ -119,10 +122,6 @@ def t_WHILE(t):
     r'while'
     return t
 
-def t_DO(t):
-    r'do'
-    return t
-
 def t_FLOAT_LITERAL(t): 
     r'[-+]?[0-9]*\.[0-9]+'
     return t
@@ -149,3 +148,4 @@ def t_error(t):
      pass
  
 lexer = lex.lex()
+

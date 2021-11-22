@@ -1,7 +1,13 @@
-let a: int = 8;
-let b: int = 9;
+#Este es el ejemplo de asignacion de variables
+#La sintaxis para variables es la siguiente
+# let <identificador> : <tipo>;
+#La variable puese ser inicializada inmediatamente de la forma
+# let <identificador> : <tipo> = <expresion>;
+
+
+let a: int;
+let b: int = 2;
 let c: float = 3.5;
 let d: float = a + b * c / 4;
-let b: float = 2.5;
-let d: int = 975;
 let var: string = "Abc";
+let _asign: bool = a && b + c *  var || 25 / 7 != 2  * 7 <= 65;

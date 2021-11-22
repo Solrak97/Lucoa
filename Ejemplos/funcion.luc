@@ -1,10 +1,16 @@
+# Las funciones se definen de la siguiente forma
+#  func <identificador>(<parametros separados por coma>) -> <tipo de retorno> {sentencias}
+
+
+# Esta funcion ejemplifica el uso de parametros 
 func foo(x: int, y: string) -> int {
-    return 1;    
+    
 }
 
-func main() -> null {
+
+# En esta funcion no se utilizan parametros por lo que 
+# La lista de parametros se encuentra vacia
+func main() -> void {
     let x: int = 3;
     let y: string = "Parametro divertido";
-    let z: int = foo x, y;
 }
-
